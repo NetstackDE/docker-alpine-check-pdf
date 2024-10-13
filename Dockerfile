@@ -1,7 +1,10 @@
 FROM alpine:latest
 
 # Paketinstallation (Beispiel: nur bash)
-RUN apk add --no-cache bash ssmtp
+RUN apk add --no-cache bash ssmtp tzdata
+
+# Zeitzone auf Europe/Berlin setzen
+RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
 # Arbeitsverzeichnis setzen
 WORKDIR /app
