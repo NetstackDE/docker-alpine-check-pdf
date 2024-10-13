@@ -14,32 +14,17 @@ smtp_config_file="/etc/ssmtp/ssmtp.conf"
 # Aktuelles Datum ermitteln
 aktuelles_datum=$(date +%d-%m-%Y)
 
-#SSMTP Service CONFIG erstellen 
-# Funktion zum Erstellen der ssmtp.conf
-function create_ssmtp_config() {
-  cat > "$smtp_config_file" << EOF
-root=$smtp_user
-mailhub=$smtp_server:$smtp_port
-AuthUser=$smtp_user
-AuthPassword=$smtp_passwort
-UseTLS=yes
-EOF
-}
-
-# Write SSMTP Config
-create_ssmtp_config
-
-# Überprüfen, ob die Konfiguration erfolgreich erstellt wurde
-if [ $? -eq 0 ]; then
-  echo "ssmtp.conf wurde erfolgreich erstellt/aktualisiert."
-else
-  echo "Fehler beim Erstellen der ssmtp.conf"
-fi
-
 # Funktion zum Senden einer E-Mail
 function sende_email() {
-  echo "Subject: Neue PDF-Datei erstellt" | ssmtp -t -v $email_empfaenger << EOF
-Neue PDF-Datei erstellt im Verzeichnis $verzeichnis
+  body="Neue PDF-Datei erstellt im Verzeichnis $verzeichnis";
+  subject="Kopierreport $aktuelles_datum $pdf_datei";
+  # E-Mail versenden
+  msmtp -v -t << EOF
+Subject: $subject
+From: $smtp_user
+To: $email_empfaenger
+
+$body
 EOF
 }
 
