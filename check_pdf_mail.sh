@@ -9,9 +9,22 @@ smtp_server="${SMTP_SERVER}"
 smtp_port="${SMTP_PORT}"
 smtp_user="${SMTP_USER}"
 smtp_passwort="${SMTP_PASSWORT}"
+smtp_config_file="/etc/ssmtp/ssmtp.conf"
 
 # Aktuelles Datum ermitteln
 aktuelles_datum=$(date +%d-%m-%Y)
+
+#SSMTP Service CONFIG erstellen 
+# Funktion zum Erstellen der ssmtp.conf
+function create_ssmtp_config() {
+  cat > "$smtp_config_file" << EOF
+root=$smtp_user
+mailhub=$smtp_server:$smtp_port
+AuthUser=$smtp_user
+AuthPassword=$smtp_passwort
+UseTLS=yes
+EOF
+}
 
 # Funktion zum Senden einer E-Mail
 function sende_email() {
