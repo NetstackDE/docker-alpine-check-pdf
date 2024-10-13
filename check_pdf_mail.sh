@@ -8,8 +8,37 @@ email_empfaenger="${EMAIL_EMPFAENGER}"
 smtp_server="${SMTP_SERVER}"
 smtp_port="${SMTP_PORT}"
 smtp_user="${SMTP_USER}"
+smtp_auth="LOGIN"
 smtp_passwort="${SMTP_PASSWORT}"
-smtp_config_file="/etc/ssmtp/ssmtp.conf"
+config_file="/etc/msmtprc"
+
+# Funktion zum Erstellen der msmtp-Konfigurationsdatei
+create_msmtp_config() {
+  cat > "$config_file" << EOF
+defaults
+# SMTP-Server und Port
+hostname=$smtp_server
+port=$smtp_port
+
+# Authentifizierung
+auth=$smtp_auth
+user=$smtp_user
+password=$smtp_password
+
+# TLS
+tls=$tls
+EOF
+}
+
+# Überprüfen, ob die Datei bereits existiert und warnen
+if [ -f "$config_file" ]; then
+  echo "Warnung: Die Datei '$config_file' existiert bereits. Sie wird überschrieben."
+fi
+
+# Konfigurationsdatei erstellen
+create_msmtp_config
+
+echo "msmtp-Konfigurationsdatei '$config_file' erfolgreich erstellt."
 
 # Aktuelles Datum ermitteln
 aktuelles_datum=$(date +%d-%m-%Y)
