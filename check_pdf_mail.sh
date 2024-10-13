@@ -11,7 +11,7 @@ smtp_user="${SMTP_USER}"
 smtp_passwort="${SMTP_PASSWORT}"
 
 # Aktuelles Datum ermitteln
-aktuelles_datum=$(date +%Y-%m-%d)
+aktuelles_datum=$(date +%d-%m-%Y)
 
 # Funktion zum Senden einer E-Mail
 function sende_email() {
@@ -23,7 +23,7 @@ EOF
 # Funktion zum Prüfen auf neue Dateien
 function pruefe_dateien() {
   echo "start folder search ...";
-  for verzeichnis in $(find "$stammverzeichnis" -maxdepth 1 -type d -name "$aktuelles_datum*"); do
+  for verzeichnis in $(find "$stammverzeichnis" -maxdepth 10 -type d -name "$aktuelles_datum*"); do
     # Prüfe in jedem gefundenen Verzeichnis nach neuen PDF-Dateien
     echo "start file search";
     for pdf_datei in $(find "$verzeichnis" -name "*.pdf"); do
