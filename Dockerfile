@@ -11,3 +11,4 @@ COPY check_pdf_mail.sh /app
 
 # Das Skript als Standardbefehl festlegen
 CMD ["./check_pdf_mail.sh"]
+
