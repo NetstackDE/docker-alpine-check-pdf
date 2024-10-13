@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # Paketinstallation (Beispiel: nur bash)
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash ssmtp
 
 # Arbeitsverzeichnis setzen
 WORKDIR /app

@@ -22,9 +22,12 @@ EOF
 
 # Funktion zum Prüfen auf neue Dateien
 function pruefe_dateien() {
+  echo "start folder search ...";
   for verzeichnis in $(find "$stammverzeichnis" -maxdepth 1 -type d -name "$aktuelles_datum*"); do
     # Prüfe in jedem gefundenen Verzeichnis nach neuen PDF-Dateien
+    echo "start file search";
     for pdf_datei in $(find "$verzeichnis" -name "*.pdf"); do
+      echo "find PDF file";
       sende_email
       break  # Abbruch, wenn eine neue PDF gefunden wurde
     done
