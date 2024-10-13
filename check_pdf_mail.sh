@@ -26,6 +26,16 @@ UseTLS=yes
 EOF
 }
 
+# Write SSMTP Config
+create_ssmtp_config
+
+# Überprüfen, ob die Konfiguration erfolgreich erstellt wurde
+if [ $? -eq 0 ]; then
+  echo "ssmtp.conf wurde erfolgreich erstellt/aktualisiert."
+else
+  echo "Fehler beim Erstellen der ssmtp.conf"
+fi
+
 # Funktion zum Senden einer E-Mail
 function sende_email() {
   echo "Subject: Neue PDF-Datei erstellt" | ssmtp -t -v $email_empfaenger << EOF
