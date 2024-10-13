@@ -28,7 +28,7 @@ function pruefe_dateien() {
       sende_email
       break  # Abbruch, wenn eine neue PDF gefunden wurde
     done
-  fi
+  done
 }
 
 # Hauptprogramm
