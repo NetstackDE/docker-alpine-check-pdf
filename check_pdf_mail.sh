@@ -8,25 +8,25 @@ email_empfaenger="${EMAIL_EMPFAENGER}"
 smtp_server="${SMTP_SERVER}"
 smtp_port="${SMTP_PORT}"
 smtp_user="${SMTP_USER}"
-smtp_auth="LOGIN"
+smtp_auth="on"
 smtp_passwort="${SMTP_PASSWORT}"
 config_file="/etc/msmtprc"
 
 # Funktion zum Erstellen der msmtp-Konfigurationsdatei
 create_msmtp_config() {
   cat > "$config_file" << EOF
-defaults
+account studiomitte
 # SMTP-Server und Port
-hostname=$smtp_server
-port=$smtp_port
+host $smtp_server
+port $smtp_port
 
 # Authentifizierung
-auth=$smtp_auth
-user=$smtp_user
-password=$smtp_password
+auth $smtp_auth
+user $smtp_user
+password $smtp_password
 
 # TLS
-tls=$tls
+tls on
 EOF
 }
 
