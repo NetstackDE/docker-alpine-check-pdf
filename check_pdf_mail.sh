@@ -8,6 +8,7 @@ email_empfaenger="${EMAIL_EMPFAENGER}"
 smtp_server="${SMTP_SERVER}"
 smtp_port="${SMTP_PORT}"
 smtp_user="${SMTP_USER}"
+smtp_from="${SMTP_FROM}"
 smtp_auth="on"
 smtp_passwort="${SMTP_PASSWORT}"
 config_file="/etc/msmtprc"
@@ -15,18 +16,23 @@ config_file="/etc/msmtprc"
 # Funktion zum Erstellen der msmtp-Konfigurationsdatei
 create_msmtp_config() {
   cat > "$config_file" << EOF
-account studiomitte
-# SMTP-Server und Port
-host $smtp_server
-port $smtp_port
+# Default settings
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.msmtp.log
 
-# Authentifizierung
-auth $smtp_auth
-user $smtp_user
-password $smtp_password
+# Account
+account        studiomitte
+host           $smtp_server
+port           $smtp_port
+from           $smtp_from
+user           $smtp_user
+password       $smtp_passwort
 
-# TLS
-tls on
+# Set default account to use
+account default : studiomitte
 EOF
 }
 
@@ -45,15 +51,8 @@ aktuelles_datum=$(date +%d-%m-%Y)
 
 # Funktion zum Senden einer E-Mail
 function sende_email() {
-  body="Neue PDF-Datei erstellt im Verzeichnis $verzeichnis";
-  subject="Kopierreport $aktuelles_datum $pdf_datei";
-  # E-Mail versenden
-  msmtp -v -t << EOF
-Subject: $subject
-From: $smtp_user
-To: $email_empfaenger
-
-$body
+  echo "Subject: Kopierreport_$aktuelles_datum_$pdf_datei" | msmtp -a studiomitte $email_empfaenger << EOF
+Neue PDF-Datei erstellt im Verzeichnis $verzeichnis
 EOF
 }
 
