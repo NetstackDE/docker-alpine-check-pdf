@@ -19,7 +19,7 @@ function sende_email() {
   dir=$2 # Folder
   body="Neue PDF-Datei erstellt im Verzeichnis $dir"
   subject="Kopierreport $aktuelles_datum $anhang"
-  
+  echo "in function path: $anhang";
   # E-Mail versenden
   curl --user "api:$mailgun_apikey" \
     "https://api.eu.mailgun.net/v3/$mailgun_domain/messages" \
@@ -39,6 +39,7 @@ function pruefe_dateien() {
     for pdf_datei in $(find "$verzeichnis" -name "*.pdf"); do
       echo "find PDF file";
       pdf_file_fullpath="$verzeichnis/$pdf_datei"
+      echo "fullpath: $pdf_file_fullpath"
       sende_email "$pdf_file_fullpath" "$verzeichnis"
       break  # Abbruch, wenn eine neue PDF gefunden wurde
     done
