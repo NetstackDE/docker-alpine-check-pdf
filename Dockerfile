@@ -1,7 +1,7 @@
 FROM alpine:latest
 
 # Paketinstallation (Beispiel: nur bash)
-RUN apk add --no-cache bash msmtp tzdata
+RUN apk add --no-cache bash msmtp tzdata curl
 
 # Zeitzone auf Europe/Berlin setzen
 RUN ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
