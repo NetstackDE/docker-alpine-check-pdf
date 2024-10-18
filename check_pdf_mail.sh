@@ -26,7 +26,7 @@ function sende_email() {
     -F from="StudioMitte Kopierreport - <$mail_from>" \
     -F subject="$subject" \
     -F to="$email_empfaenger" \
-    -F message="$body" \
+    -F Body-Plain="$body" \
     -F attachment="@$anhang" \
     -F o:tag="$mailgun_tag"
 }
