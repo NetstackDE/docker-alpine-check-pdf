@@ -21,7 +21,7 @@ function sende_email() {
   subject="Kopierreport $aktuelles_datum $anhang"
   
   # E-Mail versenden
-  curl -s --user "api:$mailgun_apikey" \
+  curl --user "api:$mailgun_apikey" \
     "https://api.eu.mailgun.net/v3/$mailgun_domain/messages" \
     -F from="StudioMitte Kopierreport - <$mail_from>" \
     -F subject="$subject" \
