@@ -38,9 +38,8 @@ function pruefe_dateien() {
     echo "start file search";
     for pdf_datei in $(find "$verzeichnis" -name "*.pdf"); do
       echo "find PDF file";
-      pdf_file_fullpath="$verzeichnis/$pdf_datei"
-      echo "fullpath: $pdf_file_fullpath"
-      sende_email "$pdf_file_fullpath" "$verzeichnis"
+      echo "fullpath: $pdf_datei"
+      sende_email "$pdf_datei" "$verzeichnis"
       break  # Abbruch, wenn eine neue PDF gefunden wurde
     done
   done
