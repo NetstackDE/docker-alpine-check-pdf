@@ -3,6 +3,7 @@
 # Konfigurierbare Variablen
 stammverzeichnis="/data/"
 email_empfaenger="${EMAIL_EMPFAENGER}"
+email_cc="${EMAIL_CC}"
 
 # SMTP-Variablen aus der Umgebung laden
 mailgun_apikey="${MAILGUN_APIKEY}"
@@ -26,6 +27,7 @@ function sende_email() {
     -F from="StudioMitte Kopierreport - <$mail_from>" \
     -F subject="$subject" \
     -F to="$email_empfaenger" \
+    -F cc="$email_cc" \
     -F html="$body" \
     -F attachment="@$anhang" \
     -F o:tag="$mailgun_tag"
